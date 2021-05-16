@@ -33,7 +33,7 @@
 #endif
 
 #ifndef CFG_TFT_TYPE
-#define CFG_TFT_TYPE TFT_TYPE_CONSTANTQ
+#define CFG_TFT_TYPE TFT_TYPE_FFT
 #endif /* CFG_TFT_TYPE */
 
 /* CQT provides its own resampling */
