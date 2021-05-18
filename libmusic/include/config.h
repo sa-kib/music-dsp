@@ -58,7 +58,7 @@
  * @brief set to 1 to avoid averaging
  */
 #ifndef CFG_FFT_AVG_WINDOW
-#define CFG_FFT_AVG_WINDOW 2
+#define CFG_FFT_AVG_WINDOW 1
 #endif /* CFG_FFT_AVG_WINDOW */
 
 #ifndef CFG_FFT_HPS_HARMONICS
