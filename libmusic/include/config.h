@@ -43,7 +43,11 @@
 #endif /* CFG_WINDOW_SIZE */
 
 #ifndef CFG_HOPS_PER_WINDOW
-#define CFG_HOPS_PER_WINDOW 1
+#if (CFG_TFT_TYPE == TFT_TYPE_FFT)
+    #define CFG_HOPS_PER_WINDOW (8./7.)
+#else
+    #define CFG_HOPS_PER_WINDOW 1
+#endif
 #endif /* CFG_HOPS_PER_WINDOW */
 
 #ifndef CFG_FFT_SIZE
