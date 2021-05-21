@@ -374,9 +374,9 @@ void ChordDetector::Process_(vector<segment_t> *segments,
     vector<uint32_t> mtx_path;
     uint32_t seg_start_idx = 0;
 #if !defined(CFG_TFT_TYPE) || (CFG_TFT_TYPE == TFT_TYPE_FFT)
-    std::unique_ptr<tft_t> tft(new FFTWrapper(FREQ_E1, FREQ_C6, samplerate, win_size, hop_size));
+    std::unique_ptr<tft_t> tft(new FFTWrapper(FREQ_E1, FREQ_C8, samplerate, win_size, hop_size));
 #else
-    std::unique_ptr<tft_t> tft(new CQTWrapper(FREQ_E1, FREQ_C6, samplerate, win_size, hop_size));
+    std::unique_ptr<tft_t> tft(new CQTWrapper(FREQ_E1, FREQ_C8, samplerate, win_size, hop_size));
 #endif
     vector<double> init_p;
     Viterbi::prob_matrix_t trans_p;
