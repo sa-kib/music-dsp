@@ -79,13 +79,13 @@ Parachord::getInputDomain() const
 size_t
 Parachord::getPreferredBlockSize() const
 {
-    return CFG_WINDOW_SIZE;
+    return CFG_WINDOW_SIZE / CFG_HOPS_PER_WINDOW;
 }
 
 size_t
 Parachord::getPreferredStepSize() const
 {
-    return CFG_WINDOW_SIZE;
+    return CFG_WINDOW_SIZE / CFG_HOPS_PER_WINDOW;
 }
 
 size_t
