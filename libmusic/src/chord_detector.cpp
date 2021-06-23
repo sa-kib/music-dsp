@@ -37,6 +37,7 @@
 #include "lmlogger.h"
 #include "tft.h"
 #include "window_functions.h"
+#include "cheby1_filter.h"
 
 #define FREQ_E1     ((freq_hz_t)41.203)
 #define FREQ_C6     ((freq_hz_t)1046.5)
@@ -48,6 +49,49 @@
 using namespace std;
 
 namespace anatomist {
+
+static inline size_t GetDecimFactor(size_t rate)
+{
+    if (!cfgEnableDownsampling)
+        return 1;
+    map<size_t, size_t> lt = {
+        {8000,  1},
+        {11025, 1},
+        {16000, 2},
+        {32000, 4},
+        {44100, 5},
+        {48000, 5},
+        {96000, 8},
+    };
+    auto factor = lt.find(rate);
+    if (factor == lt.end())
+        throw runtime_error("unsupported sampling rate " + to_string(rate));
+    else
+        return factor->second;
+}
+
+static inline Filter* GetDecimFilter(size_t factor)
+{
+    switch (factor) {
+        case 5:
+            return new Cheby1Filter({   // cheby1 (4, 0.05, 0.8/5)
+                                    2.8119e-03, 1.1248e-02, 1.6871e-02, 1.1248e-02, 2.8119e-03
+                                },
+                                {
+                                    1.0000e+00, -2.7628e+00, 3.1257e+00, -1.6705e+00 , 3.5286e-01
+                                });
+    };
+    throw runtime_error("unsupported downsampling factor " + to_string(factor));
+}
+
+static td_t Decimate(const td_t & td, size_t factor)
+{
+    assert(factor > 0);
+    td_t res((td.size() + factor - 1)/factor);
+    for (auto i = 0U; i < res.size(); i++)
+        res[i] = td[i * factor];
+    return res;
+}
 
 ChordDetector::ChordDetector()
 {
@@ -299,9 +343,18 @@ Viterbi::prob_matrix_t ChordDetector::GetScoreMatrix_(chromagram_t &chromagram)
 #endif /* 0 */
 
 void ChordDetector::Process_(vector<segment_t> *segments,
-                             const td_t &td, uint32_t samplerate,
+                             td_t td, uint32_t samplerate,
                              ResultsListener *listener, chromagram_t *c)
 {
+    size_t df = GetDecimFactor(samplerate);
+    assert(df > 0);
+    if (df != 1) {
+        std::unique_ptr<Filter> lpf(GetDecimFilter(df));
+        td_t filtered = lpf->process(td.data(), td.size());
+        td = Decimate(filtered, df);
+        samplerate /= df;
+    }
+    LM_PEEP(TD_ds, td);
     uint32_t win_size, offset;
 
 #ifdef CFG_DYNAMIC_WINDOW
@@ -378,8 +431,8 @@ void ChordDetector::Process_(vector<segment_t> *segments,
             chord_tpl_t *tpl = tpl_collection_->GetTpl(mtx_path[seg_start_idx]);
             segment_t segment;
 
-            segment.startIdx = seg_start_idx * tft->SpectrogramInterval();
-            segment.endIdx = min(res * (tft->SpectrogramInterval()) - 1,
+            segment.startIdx = df * seg_start_idx * tft->SpectrogramInterval();
+            segment.endIdx = df * min(res * (tft->SpectrogramInterval()) - 1,
                                  static_cast<uint32_t>(td.size() - 1));
             segment.chord = Chord(tpl->RootNote(), tpl->Quality());
             segment.silence = false;

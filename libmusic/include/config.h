@@ -36,6 +36,9 @@
 #define CFG_TFT_TYPE TFT_TYPE_CONSTANTQ
 #endif /* CFG_TFT_TYPE */
 
+/* CQT provides its own resampling */
+constexpr bool cfgEnableDownsampling = (CFG_TFT_TYPE == TFT_TYPE_FFT);
+
 #ifndef CFG_USE_HMM_TPLS
 #define CFG_USE_HMM_TPLS 0
 #endif /* CFG_USE_HMM_TPLS */
