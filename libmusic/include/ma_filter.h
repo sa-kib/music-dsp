@@ -41,7 +41,7 @@ public:
 
     MAFilter(uint16_t df);
 
-    std::vector<amplitude_t> process(amplitude_t *td, uint32_t samples) override;
+    std::vector<amplitude_t> process(const amplitude_t *td, uint32_t samples) override;
 
     uint16_t getDownsampleFactor() override;
 

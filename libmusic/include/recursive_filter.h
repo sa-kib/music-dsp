@@ -34,8 +34,8 @@
 class RecursiveFilter : public Filter {
 
 private:
-    std::vector<amplitude_t> leftToRight(amplitude_t *td, uint32_t samples);
-    std::vector<amplitude_t> rightToLeft(amplitude_t *td, uint32_t samples);
+    std::vector<amplitude_t> leftToRight(const amplitude_t *td, uint32_t samples);
+    std::vector<amplitude_t> rightToLeft(const amplitude_t *td, uint32_t samples);
 
 protected:
     std::vector<double> mB;
@@ -55,7 +55,7 @@ public:
      *  @param samples  length of the \p td
      *  @return         filtered data
      */
-    std::vector<amplitude_t> process(amplitude_t *td, uint32_t samples) override;
+    std::vector<amplitude_t> process(const amplitude_t *td, uint32_t samples) override;
 
     virtual ~RecursiveFilter();
 };

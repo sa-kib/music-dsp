@@ -35,7 +35,7 @@ MAFilter::MAFilter(uint16_t df)
     __mDF = df;
 }
 
-vector<amplitude_t> MAFilter::process(amplitude_t *td, uint32_t samples)
+vector<amplitude_t> MAFilter::process(const amplitude_t *td, uint32_t samples)
 {
     vector<amplitude_t> ret;
     amplitude_t tmp;

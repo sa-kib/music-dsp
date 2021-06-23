@@ -29,7 +29,7 @@
 using namespace std;
 
 
-std::vector<amplitude_t> RecursiveFilter::leftToRight(amplitude_t *x, uint32_t samples)
+std::vector<amplitude_t> RecursiveFilter::leftToRight(const amplitude_t *x, uint32_t samples)
 {
     vector<amplitude_t> y(samples);
 
@@ -43,7 +43,7 @@ std::vector<amplitude_t> RecursiveFilter::leftToRight(amplitude_t *x, uint32_t s
     return y;
 }
 
-std::vector<amplitude_t> RecursiveFilter::rightToLeft(amplitude_t *x, uint32_t c)
+std::vector<amplitude_t> RecursiveFilter::rightToLeft(const amplitude_t *x, uint32_t c)
 {
     vector<amplitude_t> y(c);
 
@@ -57,7 +57,7 @@ std::vector<amplitude_t> RecursiveFilter::rightToLeft(amplitude_t *x, uint32_t c
     return y;
 }
 
-vector<amplitude_t> RecursiveFilter::process(amplitude_t *td, uint32_t samples)
+vector<amplitude_t> RecursiveFilter::process(const amplitude_t *td, uint32_t samples)
 {
     vector<amplitude_t> l2r = leftToRight(td, samples);
     vector<amplitude_t> r2l = rightToLeft(l2r.data(), l2r.size());

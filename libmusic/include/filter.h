@@ -34,7 +34,7 @@
 class Filter {
 
 public:
-    virtual std::vector<amplitude_t> process(amplitude_t *td, uint32_t samples) = 0;
+    virtual std::vector<amplitude_t> process(const amplitude_t *td, uint32_t samples) = 0;
 
     virtual uint16_t getDownsampleFactor() { return 1; };
 
