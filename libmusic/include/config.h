@@ -25,6 +25,8 @@
  */
 
 #pragma once
+#define TFT_TYPE_FFT        1
+#define TFT_TYPE_CONSTANTQ  2
 
 #ifndef CFG_DYNAMIC_WINDOW
 //#define CFG_DYNAMIC_WINDOW
