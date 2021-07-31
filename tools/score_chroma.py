@@ -44,13 +44,14 @@ def main(args):
     tpls = {}
     P_results = []
     S_results = []
-    # '/' can't be part of file name
+    # drop all after '/': ignore bass info
     for row in tpls_reader:
-        tpls[row[0].replace("/", "|", 1)] = np.array(row[1:], dtype=float)
+        tpls[row[0].split('/')[0]] = np.array(row[13:], dtype=float)
     for file_paths in map(glob.glob, args.input_files):
         for file_path in file_paths:
             filename = os.path.basename(file_path)
             chord_name = filename[:-4]
+            chord_name = chord_name.split('|')[0] # ignore bass info
             if not filename.endswith((".wav",".aif")) or chord_name not in tpls:
                 continue
             #TODO: handle errors of client execution
@@ -58,6 +59,7 @@ def main(args):
             output = proc.communicate()[0].decode('ascii')
             pcp_reader = csv.reader(output.splitlines(), delimiter=",")
             chromagram = np.array(list(pcp_reader), dtype=float, ndmin=2)
+            chromagram = chromagram[:,12:] # use only treble part of PCP vector
             # scale template to [0,1], so it matches PCP range
             tpl = tpls[chord_name] / tpls[chord_name].max()
             tpl_ref = np.array([tpl] * len(chromagram), dtype=float, ndmin=2)
