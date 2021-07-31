@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Copyright 2019 Volodymyr Kononenko
@@ -51,7 +51,7 @@ def main(args):
         for file_path in file_paths:
             filename = os.path.basename(file_path)
             chord_name = filename[:-4]
-            if not filename.endswith((".wav",".aif")) or not tpls.has_key(chord_name):
+            if not filename.endswith((".wav",".aif")) or chord_name not in tpls:
                 continue
             #TODO: handle errors of client execution
             proc = subprocess.Popen([args.client_path, "--pcpcsv", file_path], stdout=subprocess.PIPE)
