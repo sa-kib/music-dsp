@@ -27,6 +27,8 @@ import csv
 from math import log10
 import numpy as np
 
+supported_formats = ['wav','aif','flac']
+
 def psnr(A, ref):
     if A.shape != ref.shape:
         raise ValueError("Chromagrams sizes not equal")
@@ -50,9 +52,9 @@ def main(args):
     for file_paths in map(glob.glob, args.input_files):
         for file_path in file_paths:
             filename = os.path.basename(file_path)
-            chord_name = filename[:-4]
+            chord_name, ext = filename.rsplit('.', 1)
             chord_name = chord_name.split('|')[0] # ignore bass info
-            if not filename.endswith((".wav",".aif")) or chord_name not in tpls:
+            if ext.lower() not in supported_formats or chord_name not in tpls:
                 continue
             #TODO: handle errors of client execution
             proc = subprocess.Popen([args.client_path, "--pcpcsv", file_path], stdout=subprocess.PIPE)
