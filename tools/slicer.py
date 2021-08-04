@@ -49,6 +49,9 @@ if __name__ == "__main__":
         startIdx = round(float(slice[0]) * info.samplerate)
         endIdx = round(float(slice[1]) * info.samplerate)
         name = slice[2].replace("/", "|", 1)
+        # major is default for chord name w/o suffix
+        if ':' not in name and name != 'N':
+            name += ':maj'
         data, dummy = sf.read(track_name, start=startIdx, stop=endIdx+1)
         dir2name = os.path.join(dirname, dir2format.format(i))
         os.mkdir(dir2name)
