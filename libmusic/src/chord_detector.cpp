@@ -25,6 +25,7 @@
  */
 
 #include <algorithm>
+#include <cassert>
 #include <limits>
 
 #include "beat_detector.h"
