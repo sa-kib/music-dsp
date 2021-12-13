@@ -33,6 +33,11 @@ note_t operator+(note_t note, int term)
     return static_cast<note_t>(tmp);
 }
 
+note_t operator-(note_t note, int term)
+{
+    return note + (-term);
+}
+
 std::ostream& operator<<(std::ostream& os, const note_t& n)
 {
     std::map<note_t, std::string> n2sMap;
