@@ -68,7 +68,6 @@ typedef enum {
 } note_t;
 
 note_t operator+(note_t note, int term);
-note_t operator-(note_t note, int term);
 std::ostream& operator<<(std::ostream& os, const note_t& n);
 
 typedef enum : int32_t {
