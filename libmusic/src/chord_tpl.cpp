@@ -36,124 +36,112 @@ namespace anatomist {
 
 std::map<chord_quality_t, std::vector<std::vector<note_presense_state_t>>> ChordTpl::chord_qlty_tpls_ = {
     {cq_maj,                {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
-                                     nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
                                     {nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
-                                    {nps_NP, nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
-                                     nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
-                                    {nps_NP, nps_NP, nps_NP, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
-                                     nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_min,                {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
-                                     nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
                                     {nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
-                                    {nps_NP, nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
-                                     nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
-                                    {nps_NP, nps_NP, nps_NP, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
-                                     nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_5,                  {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_NP, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_7,                  {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
                                 }},
     {cq_maj7,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_P,   nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_min7,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_sus2,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_P,  nps_NP, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_sus4,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_NP, nps_P,  nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_hdim7,              {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_PF, nps_NP, nps_PF,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_aug,                {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_PS, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_dim,                {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_PF, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_dim7,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_PF, nps_NP, nps_PFF, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     /* END OF MINIMIM SUPPORTED SET */
     {cq_dim7,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_PF, nps_NP, nps_PFF, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_maj_add9,           {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_min_add9,           {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_maj6,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_P,  nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_min6,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_P,  nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_maj9,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_P,   nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_min9,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP}
                                 }},
     {cq_maj_add11,          {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_P,  nps_NP, nps_NP}
                                 }},
     {cq_7_add9sharp,        {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_PS, nps_NP, nps_NP,  nps_NP, nps_NP}
                                 }},
     {cq_9,                  {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_P,  nps_NP, nps_NP, nps_NP, nps_NP},
                                 }},
     {cq_aug7,               {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_PS, nps_NP, nps_PF,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP},
                                 }},
     {cq_maj11,              {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_P,   nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP}
                                 }},
     {cq_min11,              {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_NP}
                                 }},
     {cq_maj13,              {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_P,   nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_P}
                                 }},
     {cq_min13,              {
-                                    {nps_P,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
+                                    {nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,  nps_NP, nps_NP, nps_NP, nps_NP, nps_NP, nps_NP,
                                      nps_P,  nps_NP, nps_PF, nps_NP, nps_P,  nps_NP, nps_PF,  nps_NP, nps_P,  nps_NP, nps_P,  nps_NP, nps_P}
                                 }},
 };
@@ -245,19 +233,13 @@ void ChordTpl::InitTpl_(note_t root_note, chord_quality_t cq, uint8_t ss)
         }
     }
 
-    for (uint8_t i = 0; i < tpl_.size() / 2; i++) {
-        if (tpl_[i] != 1 && tpl_[i + notes_Total] == 1) {
-            tpl_[i] = 0.5;
-        }
-    }
-
     PostInit_(1.0f);
 }
 
 void ChordTpl::InitN_()
 {
     typeof(tpl_) treble(notes_Total, 1);
-    tpl_.resize(notes_Total, 0.5);
+    tpl_.resize(notes_Total, 0);
     tpl_.insert(tpl_.end(), treble.begin(), treble.end());
 
     PostInit_(1.1f);
