@@ -101,27 +101,19 @@ public:
      * Return median of the vector
      */
     template<typename T>
-    static T median(const std::vector<T> v)
+    static T median(std::vector<T> v)
     {
-        if (v.size() == 0) {
+        if (v.empty())
             throw std::invalid_argument("median(): empty vector");
-        } else if (v.size() == 1) {
+        if (v.size() == 1)
             return v[0];
-        }
 
-        std::vector<T> v_s = std::vector<T>(v);
-        uint32_t mid_idx = v_s.size() / 2;
-        T median;
+        auto mid_idx = v.size() / 2;
+        sort(v.begin(), v.end());
 
-        sort(v_s.begin(), v_s.end());
-
-        if (v_s.size() % 2) {
-            median = v_s[mid_idx];
-        } else {
-            median = (v_s[mid_idx] + v_s[mid_idx - 1]) / 2;
-        }
-
-        return median;
+        if (v.size() % 2)
+            return v[mid_idx];
+        return (v[mid_idx] + v[mid_idx - 1]) / 2;
     }
 
     template<typename T>
