@@ -399,7 +399,7 @@ void ChordDetector::Process_(vector<segment_t> *segments,
     }
 
     score_mtx = GetScoreMatrix_(chromagram);
-
+    LM_PEEP(score_matrix, score_mtx);
     init_p = vector<double>(chords_total, 0);
     init_p[init_p.size() - 1] = 1;
 
