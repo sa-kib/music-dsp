@@ -72,6 +72,7 @@ void operator+(note_t, note_t); // undefined
 int operator-(note_t, note_t);
 note_t operator-(note_t, int);
 std::ostream& operator<<(std::ostream& os, const note_t& n);
+std::vector<amplitude_t> operator-(const std::vector<amplitude_t> &, const std::vector<amplitude_t> &);
 
 typedef enum : int32_t {
     OCTAVE_0,

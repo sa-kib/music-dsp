@@ -98,6 +98,12 @@ public:
 
     PitchClsProfile & operator/=(float denominator);
 
+    friend inline std::vector<amplitude_t>
+    operator-(const PitchClsProfile &pcp, const std::vector<amplitude_t> &v)
+    {
+        return pcp.__mPCP - v;
+    }
+
     friend std::ostream& operator<<(std::ostream& os, const PitchClsProfile& pcp);
 
     std::string toCSV();

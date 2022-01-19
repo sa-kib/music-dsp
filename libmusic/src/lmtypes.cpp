@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Music-DSP. If not, see <https://www.gnu.org/licenses/>.
  */
+#include <cassert>
 
 #include "config.h"
 #include "lmtypes.h"
@@ -124,6 +125,15 @@ ostream& operator<<(ostream& os, const note_t& n)
     os << n2sMap[n];
 
     return os;
+}
+
+vector<amplitude_t> operator-(const vector<amplitude_t> &lv, const vector<amplitude_t> &rv)
+{
+    assert(lv.size() == rv.size());
+    vector<amplitude_t> diff(lv.size());
+    for (auto i = 0u; i < lv.size(); i++)
+        diff[i] = lv[i] - rv[i];
+    return diff;
 }
 
 ostream& operator<<(ostream& os, const chord_quality_t& q)
