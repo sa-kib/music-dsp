@@ -321,11 +321,6 @@ Viterbi::prob_matrix_t ChordDetector::GetScoreMatrix_(chromagram_t &chromagram)
                 score = 0;
             }
 
-            if (tpl_idx == tpl_collection_->Size() - 1) {
-                score *= 0.7;
-            }
-
-            score = pow(1.3, score);
             score_mtx[win_idx].push_back(score);
             sum += score;
         }

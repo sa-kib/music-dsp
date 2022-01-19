@@ -38,6 +38,7 @@
 
 /* CQT provides its own resampling */
 constexpr bool cfgEnableDownsampling = (CFG_TFT_TYPE == TFT_TYPE_FFT);
+constexpr float cfgScoringVariance = 0.2f;
 
 #ifndef CFG_USE_HMM_TPLS
 #define CFG_USE_HMM_TPLS 0

@@ -70,11 +70,6 @@ private:
      */
     void InitN_();
 
-    /**
-     * Post initialization step
-     */
-    void PostInit_(float boost);
-
 public:
     /**
      * Constructor

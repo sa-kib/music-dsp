@@ -232,8 +232,6 @@ void ChordTpl::InitTpl_(note_t root_note, chord_quality_t cq, uint8_t ss)
             tpl_[note - note_Min + treble_offset] = 1;
         }
     }
-
-    PostInit_(1.0f);
 }
 
 void ChordTpl::InitN_()
@@ -241,29 +239,19 @@ void ChordTpl::InitN_()
     typeof(tpl_) treble(notes_Total, 1);
     tpl_.resize(notes_Total, 0);
     tpl_.insert(tpl_.end(), treble.begin(), treble.end());
-
-    PostInit_(1.1f);
-}
-
-void ChordTpl::PostInit_(float boost)
-{
-    float stand = 0;
-
-    for (const auto & val : tpl_) {
-        stand += pow(abs(val), 2.0) / tpl_.size();
-    }
-
-    stand = powf(stand, 1.0f / 2.0) / boost;
-
-    for (auto & val : tpl_) {
-        val /= stand;
-    }
 }
 
 tpl_score_t ChordTpl::GetScore(pcp_t *pcp)
 {
     if (pcp->size() == tpl_.size()) {
-        return pcp->sumProduct(tpl_);
+        // 𝜎² = cfgScoringVariance
+        // 𝛴 = 𝜎²𝑰₂₄, 𝛴⁻¹ = 𝜎⁻²𝑰₂₄
+        // |𝛴| = det 𝛴 = 𝜎²⁴
+        vector<amplitude_t> diff = *pcp - tpl_;
+        diff.erase(diff.begin(), diff.begin() + notes_Total); // do not consider bass
+        const float D = pow(2 * M_PI * cfgScoringVariance, 12);
+        //TODO: optimize by pre-calculating denominator
+        return exp(-0.5  * Helpers::sumProduct(diff, diff) / cfgScoringVariance) / sqrt(D);
     } else if (pcp->size() == tpl_.size() / 2) { /* no separation between bass and treble */
         vector<typeof(tpl_[0])> treble(tpl_.begin() + notes_Total, tpl_.end());
         return pcp->euclideanDistance<typeof(tpl_[0])>(treble);
