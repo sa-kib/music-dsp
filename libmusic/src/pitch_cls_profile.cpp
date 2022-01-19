@@ -160,21 +160,6 @@ amplitude_t PitchClsProfile::divergenceKullbackLeibler(vector<amplitude_t> &v)
     return d;
 }
 
-amplitude_t PitchClsProfile::sumProduct(std::vector<amplitude_t> &v)
-{
-    if (v.size() != __mPCP.size()) {
-        throw invalid_argument("sumProduct(): wrong vector size");
-    }
-
-    amplitude_t sum = 0;
-
-    for (uint8_t i = 0; i < __mPCP.size(); i++) {
-        sum += __mPCP[i] * v[i];
-    }
-
-    return sum;
-}
-
 PitchClsProfile & PitchClsProfile::operator+=(const PitchClsProfile& pcp)
 {
     for (uint8_t i = 0; i < __mPCP.size(); i++) {

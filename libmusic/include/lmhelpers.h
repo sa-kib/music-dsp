@@ -29,6 +29,7 @@
 #include <stdint.h>
 #include <vector>
 #include <fstream>
+#include <cassert>
 
 #include "lmtypes.h"
 
@@ -96,6 +97,20 @@ public:
     }
 
     static bool almostEqual(double a, double b, double eps);
+
+    template <typename T>
+    static T sumProduct(const std::vector<T> &lv, const std::vector<T> &rv)
+    {
+        assert(lv.size() == rv.size());
+        T sum = 0;
+        auto li = lv.begin();
+        auto ri = rv.begin();
+        while (li != lv.end()) {
+            sum += *li * *ri;
+            li++; ri++;
+        }
+        return sum;
+    }
 
     /**
      * Return median of the vector

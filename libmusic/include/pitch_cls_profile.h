@@ -30,6 +30,7 @@
 
 #include "fft.h"
 #include "lmtypes.h"
+#include "lmhelpers.h"
 #include "tft.h"
 
 
@@ -88,7 +89,10 @@ public:
 
     amplitude_t divergenceKullbackLeibler(std::vector<amplitude_t> &v);
 
-    amplitude_t sumProduct(std::vector<amplitude_t> &v);
+    inline amplitude_t sumProduct(std::vector<amplitude_t> &v)
+    {
+        return Helpers::sumProduct(__mPCP, v);
+    }
 
     PitchClsProfile & operator+=(const PitchClsProfile& pcp);
 
