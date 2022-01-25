@@ -27,12 +27,14 @@ set (VAMP_TARGET parachord-vamp)
 set (EXT_CQTT_TARGET cqtt)
 set (EXT_KISSFFT_TARGET kissfft)
 set (EXT_VAMPSDK_TARGET vamp-plugin-sdk)
+set (EXT_NNLS_TARGET nnls)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/libmusic/include
     ${PROJECT_SOURCE_DIR}/ext/cqtt/include
     ${PROJECT_SOURCE_DIR}/ext/kissfft
     ${PROJECT_SOURCE_DIR}/ext/kissfft/tools
+    ${PROJECT_SOURCE_DIR}/ext/nnls
 )
 
 find_path(SND_HEADERS NAMES sndfile.h)
