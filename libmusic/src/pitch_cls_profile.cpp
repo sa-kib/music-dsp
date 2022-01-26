@@ -32,11 +32,13 @@
 #include "pitch_calculator.h"
 #include "pitch_cls_profile.h"
 #include "window_functions.h"
-
+#include "nnls.h"
 
 using namespace std;
 
 namespace anatomist {
+
+log_spectrogram_t PitchClsProfile::complex_dict_ = log_spectrogram_t(0);
 
 PitchClsProfile::PitchClsProfile()
 {
@@ -212,6 +214,59 @@ string PitchClsProfile::toCSV()
     }
 
     return csv.str();
+}
+
+fd_t PitchClsProfile::__makeComplexTone(freq_hz_t fq, tft_t &tft)
+{
+    td_t tone(tft.SpectrogramInterval(), 0);
+    freq_hz_t harmonic_fq = fq;
+    for (auto i = 1u; harmonic_fq < tft.GetMaxFreq(); harmonic_fq = fq * ++i) {
+        for (auto j = 0u; j < tone.size(); j++) {
+            tone[j] += pow(0.6, i - 1) * sin(2 * M_PI * j * harmonic_fq / tft.GetSampleRate());
+        }
+    }
+    tft.Process(tone, 0);
+    return tft.GetSpectrogram()[0];
+}
+
+void PitchClsProfile::__initComplexDictionary(tft_t &tft)
+{
+    log_spectrogram_t &cd = PitchClsProfile::complex_dict_;
+    if (!cd.empty())
+        return;
+    PitchCalculator& pc = PitchCalculator::getInstance();
+    freq_hz_t fq = pc.getPitch(tft.GetMinFreq());
+    while (fq < tft.GetMaxFreq()) {
+        cd.push_back(__makeComplexTone(fq, tft));
+        fq = pc.getPitchByInterval(fq, 1);
+    }
+    LM_PEEP(PCP_complex_dict, cd);
+}
+
+fd_t PitchClsProfile::__nnlsWrapper(fd_t spectra)
+{
+    log_spectrogram_t &cd = PitchClsProfile::complex_dict_;
+    if (cd.empty())
+        throw runtime_error("complex dictionary not initialized");
+    if (cd[0].size() != spectra.size())
+        throw invalid_argument("incompatible spectra size");
+    int mode, M = cd[0].size(), N = cd.size();
+    float A[M * N], B[M], X[N], W[N], ZZ[M];
+    int I[N];
+    float rnorm;
+
+    copy(spectra.begin(), spectra.end(), B); // amplitude_t to float
+    for (int row = 0;
+         row < N;
+         copy(cd[row].begin(), cd[row].end(), A + row * M), row++);
+
+    nnls(A, M, M, N, B, X, &rnorm, W, ZZ, I, &mode);
+    if (mode == 3)
+        throw invalid_argument("nnls unexpected mode");
+    spectra.clear();
+    if (mode == 1)
+        spectra.insert(spectra.begin(), X, X + N);
+    return spectra;
 }
 
 }

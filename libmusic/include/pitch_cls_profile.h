@@ -42,6 +42,7 @@ private:
 
     std::vector<amplitude_t> __mPCP;
     amplitude_t __mPitchClsMax = 0;
+    static log_spectrogram_t complex_dict_;
 
     /**
      * Normalize obtained PCP amplitudes
@@ -49,6 +50,9 @@ private:
      * Because amplitudes in chord type templates are defined as 0 and 1
      */
     void __normalize();
+    static fd_t __makeComplexTone(freq_hz_t, tft_t&);
+    static void __initComplexDictionary(tft_t&);
+    static fd_t __nnlsWrapper(fd_t);
 public:
     /**
      * Constructor for creating an empty profile
