@@ -56,7 +56,7 @@ void FFTWrapper::Process(const td_t & td, uint32_t offset)
         td_t td_win(td.begin() + sample_idx, td.begin() + sample_idx + len);
         FFT *fft;
 
-        WindowFunctions::applyDefault(td_win);
+        WindowFunctions::applyHann(td_win); //TODO: play around with me
 
         fft = new FFT(td_win, GetSampleRate(), GetMinFreq(), GetMaxFreq());
         fft_sg.push_back(fd_t(fft->GetFreqDomain().p, fft->GetFreqDomain().p + fft->GetFreqDomainLen()));
