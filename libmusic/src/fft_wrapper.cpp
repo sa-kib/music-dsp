@@ -58,7 +58,7 @@ void FFTWrapper::Process(const td_t & td, uint32_t offset)
 
         WindowFunctions::applyDefault(td_win);
 
-        fft = new FFT(td_win, sample_rate_, f_min_, f_max_);
+        fft = new FFT(td_win, GetSampleRate(), GetMinFreq(), GetMaxFreq());
         fft_sg.push_back(fd_t(fft->GetFreqDomain().p, fft->GetFreqDomain().p + fft->GetFreqDomainLen()));
         spectrogram_.push_back(FFTPruned(fft));
 

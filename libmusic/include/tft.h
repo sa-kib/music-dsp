@@ -107,6 +107,10 @@ public:
     virtual uint32_t FreqToBin(freq_hz_t f) = 0;
 
     virtual freq_hz_t BinToFreq(uint32_t idx) = 0;
+
+    inline size_t GetSampleRate() { return sample_rate_; }
+    inline freq_hz_t GetMaxFreq() { return f_max_; }
+    inline freq_hz_t GetMinFreq() { return f_min_; }
 } tft_t;
 
 }
