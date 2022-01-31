@@ -276,9 +276,8 @@ chromagram_t ChordDetector::ChromagramFromSpectrogram_(tft_t *tft)
     log_spectrogram_t lsg = tft->GetSpectrogram();
     chromagram_t chromagram;
 
-    for (uint32_t win_idx = 0; win_idx < lsg.size(); win_idx++) {
-        chromagram.push_back(PitchClsProfile(lsg[win_idx], tft));
-    }
+    for (auto & win: lsg)
+        chromagram.emplace_back(win, tft);
 
     return chromagram;
 }

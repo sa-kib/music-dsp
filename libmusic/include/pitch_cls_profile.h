@@ -61,7 +61,7 @@ public:
 
     PitchClsProfile(FFT *fft);
 
-    PitchClsProfile(fd_t &fd, tft_t *tft);
+    PitchClsProfile(const fd_t &fd, tft_t *tft);
 
     /**
      * Get pitch class value for the specified note

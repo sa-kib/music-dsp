@@ -79,7 +79,7 @@ PitchClsProfile::PitchClsProfile(FFT *fft)
     __normalize();
 }
 
-PitchClsProfile::PitchClsProfile(fd_t &fd_mags, tft_t *tft)
+PitchClsProfile::PitchClsProfile(const fd_t &fd_mags, tft_t *tft)
 {
     PitchCalculator& pc = PitchCalculator::getInstance();
     uint8_t bps = tft->BinsPerSemitone();
