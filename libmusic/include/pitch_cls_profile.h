@@ -43,6 +43,7 @@ private:
     std::vector<amplitude_t> __mPCP;
     amplitude_t __mPitchClsMax = 0;
     static log_spectrogram_t complex_dict_;
+    static std::vector<freq_hz_t> complex_dict_idx_;
 
     /**
      * Normalize obtained PCP amplitudes

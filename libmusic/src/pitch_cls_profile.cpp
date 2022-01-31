@@ -39,6 +39,7 @@ using namespace std;
 namespace anatomist {
 
 log_spectrogram_t PitchClsProfile::complex_dict_ = log_spectrogram_t(0);
+vector<freq_hz_t> PitchClsProfile::complex_dict_idx_ = {};
 
 PitchClsProfile::PitchClsProfile()
 {
@@ -82,33 +83,17 @@ PitchClsProfile::PitchClsProfile(FFT *fft)
 PitchClsProfile::PitchClsProfile(const fd_t &fd_mags, tft_t *tft)
 {
     PitchCalculator& pc = PitchCalculator::getInstance();
-    uint8_t bps = tft->BinsPerSemitone();
-    int32_t offset = tft->FreqToBin(pc.noteToPitch(note_E, OCTAVE_MIN));
-    uint8_t semitones_cnt = fd_mags.size() / bps;
-    freq_hz_t f3 = pc.noteToPitch(note_F, OCTAVE_3);
-    uint32_t f3_idx = tft->FreqToBin(f3);
-    uint32_t win_offset = 0; // TODO: calculate
-    vector<amplitude_t> bass_win = WindowFunctions::getHamming(f3_idx / bps, win_offset);
-    vector<amplitude_t> treble_win = WindowFunctions::getHamming(semitones_cnt, win_offset);
 
     __mPCP.resize(notes_Total * 2, 0);
+    __initComplexDictionary(*tft);
 
-    for (uint32_t bin = offset; bin < fd_mags.size() - (bps/2+1); bin += bps) {
+    fd_t x = __nnlsWrapper(fd_mags);
+
+    for (uint32_t bin = 0; bin < x.size(); bin++) {
         note_t note;
-        amplitude_t tmp = 0;
-        for (int32_t i = -bps/2; i < bps/2+1; i++) {
-            tmp += fd_mags[bin + i] * (1 - abs(i * 1.0 / (bps/2 + 1)));
-        }
 
-        if (0 == tmp)
-            continue;
-
-        note = pc.pitchToNote(pc.getPitch(tft->BinToFreq(bin)));
-
-        if (bin / bps < bass_win.size()) {
-            __mPCP[note - note_Min] += tmp * bass_win[bin / bps];
-        }
-        __mPCP[note - note_Min + notes_Total] += tmp * treble_win[bin / bps];
+        note = pc.pitchToNote(complex_dict_idx_[bin]);
+        __mPCP[note - note_Min + notes_Total] += x[bin];
     }
 
     __mPitchClsMax = *max_element(__mPCP.begin(), __mPCP.end());
@@ -238,6 +223,7 @@ void PitchClsProfile::__initComplexDictionary(tft_t &tft)
     freq_hz_t fq = pc.getPitch(tft.GetMinFreq());
     while (fq < tft.GetMaxFreq()) {
         cd.push_back(__makeComplexTone(fq, tft));
+        complex_dict_idx_.push_back(fq);
         fq = pc.getPitchByInterval(fq, 1);
     }
     LM_PEEP(PCP_complex_dict, cd);
