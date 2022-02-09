@@ -49,20 +49,25 @@ FFTWrapper::FFTWrapper(freq_hz_t f_low, freq_hz_t f_high, uint32_t sample_rate,
 void FFTWrapper::Process(const td_t & td, uint32_t offset)
 {
     std::vector<fd_t> fft_sg;
+    td_t td_win(CFG_FFT_SIZE);
+
     spectrogram_.clear();
 
     for (uint32_t sample_idx = offset; sample_idx < td.size(); sample_idx += hop_size_) {
         size_t len = min(static_cast<size_t>(win_size_), td.size() - sample_idx);
-        td_t td_win(td.begin() + sample_idx, td.begin() + sample_idx + len);
-        FFT *fft;
+        td_win.assign(CFG_FFT_SIZE, 0);
+        size_t off = (td_win.size() - len) / 2;
+        copy(td.begin() + sample_idx, td.begin() + sample_idx + len, td_win.begin() + off);
+        //td_t td_win(td.begin() + sample_idx, td.begin() + sample_idx + len);
+        //FFT *fft;
 
-        WindowFunctions::applyHann(td_win); //TODO: play around with me
+        //WindowFunctions::applyHann(td_win); //TODO: play around with me
 
-        fft = new FFT(td_win, GetSampleRate(), GetMinFreq(), GetMaxFreq());
+        unique_ptr<FFT> fft(new FFT(td_win, GetSampleRate(), GetMinFreq(), GetMaxFreq()));
         fft_sg.push_back(fd_t(fft->GetFreqDomain().p, fft->GetFreqDomain().p + fft->GetFreqDomainLen()));
-        spectrogram_.push_back(FFTPruned(fft));
+        spectrogram_.push_back(FFTPruned(fft.get()));
 
-        delete fft;
+        //delete fft;
     }
 
     LM_PEEP(FFT_sg, fft_sg);
